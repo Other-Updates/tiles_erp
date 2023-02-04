@@ -1,0 +1,12 @@
+/attachments
+/attachment
+/application/cache
+/application/config
+/application/libraries
+/application/logs
+/public/upload
+/readme
+/maintenance
+/system
+/app
+fields.sql

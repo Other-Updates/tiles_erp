@@ -1,0 +1,117 @@
+CREATE TABLE `erp_invoice` (
+  `id` int(11) NOT NULL,
+  `inv_id` varchar(125) NOT NULL,
+  `q_id` int(11) NOT NULL DEFAULT '0',
+  `firm_id` int(11) NOT NULL,
+  `customer` int(11) NOT NULL,
+  `sales_man` int(50) DEFAULT NULL,
+  `contract_customer` int(11) NOT NULL DEFAULT '0',
+  `total_qty` decimal(10,2) NOT NULL,
+  `delivery_qty` decimal(10,2) NOT NULL,
+  `tax_label` varchar(120) NOT NULL,
+  `tax` float NOT NULL,
+  `cgst_price` float(10,2) NOT NULL,
+  `igst_price` float(10,2) NOT NULL,
+  `subtotal_qty` float NOT NULL,
+  `net_total` float NOT NULL,
+  `round_off` float(7,2) NOT NULL,
+  `transport` float(7,2) NOT NULL,
+  `labour` float(7,2) NOT NULL,
+  `commission_rate` decimal(12,2) DEFAULT NULL,
+  `ref_name` int(11) NOT NULL,
+  `remarks` varchar(120) NOT NULL,
+  `customer_po` varchar(120) NOT NULL,
+  `bill_type` enum('cash','credit') NOT NULL,
+  `created_date` date NOT NULL,
+  `credit_due_date` date NOT NULL,
+  `credit_days` int(55) DEFAULT NULL,
+  `credit_limit` varchar(50) DEFAULT NULL,
+  `temp_credit_limit` varchar(50) DEFAULT NULL,
+  `approved_by` int(55) DEFAULT NULL,
+  `created_by` int(11) NOT NULL,
+  `invoice_status` enum('waiting','approved') NOT NULL,
+  `payment_status` enum('Pending','Completed') NOT NULL,
+  `delivery_status` enum('pending','partially_delivered','delivered') NOT NULL,
+  `estatus` tinyint(1) NOT NULL DEFAULT '1',
+  `is_deleted` int(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `erp_invoice`
+--
+
+INSERT INTO `erp_invoice` (`id`, `inv_id`, `q_id`, `firm_id`, `customer`, `sales_man`, `contract_customer`, `total_qty`, `delivery_qty`, `tax_label`, `tax`, `cgst_price`, `igst_price`, `subtotal_qty`, `net_total`, `round_off`, `transport`, `labour`, `commission_rate`, `ref_name`, `remarks`, `customer_po`, `bill_type`, `created_date`, `credit_due_date`, `credit_days`, `credit_limit`, `temp_credit_limit`, `approved_by`, `created_by`, `invoice_status`, `payment_status`, `delivery_status`, `estatus`, `is_deleted`) VALUES
+(3, 'INV001', 0, 1, 17, 1, 0, '3.00', '3.00', '', 111, 93.00, 18.00, 0, 1311, 0.00, 0.00, 0.00, NULL, 0, '', '', 'cash', '2020-09-17', '2020-09-17', NULL, NULL, NULL, NULL, 1, 'approved', 'Pending', 'delivered', 1, 0);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `erp_invoice`
+--
+ALTER TABLE `erp_invoice`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `erp_invoice`
+--
+ALTER TABLE `erp_invoice`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  
+  CREATE TABLE `erp_invoice_details` (
+  `id` int(11) NOT NULL,
+  `q_id` int(11) NOT NULL,
+  `in_id` int(120) NOT NULL,
+  `category` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `product_description` varchar(255) DEFAULT NULL,
+  `product_type` enum('product','service') NOT NULL,
+  `brand` int(11) NOT NULL,
+  `unit` varchar(15) DEFAULT NULL,
+  `quantity` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `delivery_quantity` int(11) NOT NULL,
+  `return_quantity` int(11) NOT NULL DEFAULT '0',
+  `customer_exists_qty` int(11) DEFAULT '0',
+  `per_cost` float NOT NULL,
+  `tax` float NOT NULL,
+  `gst` float DEFAULT NULL,
+  `igst` float DEFAULT NULL,
+  `discount` float DEFAULT NULL,
+  `sub_total` float NOT NULL,
+  `created_date` datetime NOT NULL,
+  `is_deleted` int(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `erp_invoice_details`
+--
+
+INSERT INTO `erp_invoice_details` (`id`, `q_id`, `in_id`, `category`, `product_id`, `product_description`, `product_type`, `brand`, `unit`, `quantity`, `delivery_quantity`, `return_quantity`, `customer_exists_qty`, `per_cost`, `tax`, `gst`, `igst`, `discount`, `sub_total`, `created_date`, `is_deleted`) VALUES
+(6, 0, 3, 2, 1149, NULL, 'product', 2, 'EACH', '1.00', 1, 0, 0, 100, 9, 0, 18, 0, 100, '2020-09-17 20:29:51', 0),
+(7, 0, 3, 4, 1156, NULL, 'product', 5, 'EACH', '1.00', 1, 0, 0, 500, 6, 0, 0, 0, 500, '2020-09-17 20:29:51', 0),
+(8, 0, 3, 3, 1152, NULL, 'product', 4, 'EACH', '1.00', 1, 0, 0, 600, 9, 0, 0, 0, 600, '2020-09-17 20:29:51', 0);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `erp_invoice_details`
+--
+ALTER TABLE `erp_invoice_details`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `erp_invoice_details`
+--
+ALTER TABLE `erp_invoice_details`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;

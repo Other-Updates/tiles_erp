@@ -1,0 +1,55 @@
+ALTER TABLE `erp_quotation` ADD COLUMN `taxable_price` FLOAT(18,2) DEFAULT 0.00 NOT NULL AFTER `tax`, ADD COLUMN `cgst_price` FLOAT(18,2) DEFAULT 0.00 NOT NULL AFTER `taxable_price`, ADD COLUMN `igst_price` FLOAT(18,2) DEFAULT 0.00 NOT NULL AFTER `cgst_price`; 
+
+
+ALTER TABLE `erp_quotation_history` ADD COLUMN `taxable_price` FLOAT(18,2) DEFAULT 0.00 NOT NULL AFTER `tax`, ADD COLUMN `cgst_price` FLOAT(18,2) DEFAULT 0.00 NOT NULL AFTER `taxable_price`, ADD COLUMN `igst_price` FLOAT(18,2) DEFAULT 0.00 NOT NULL AFTER `cgst_price`;
+
+CREATE TABLE `erp_quotation_return` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `q_id` VARCHAR(11) NOT NULL,
+  `quotation` VARCHAR(250) DEFAULT NULL,
+  `firm_id` INT(11) NOT NULL,
+  `customer` INT(11) NOT NULL,
+  `total_qty` INT(11) NOT NULL,
+  `tax_label` VARCHAR(120) NOT NULL,
+  `tax` FLOAT NOT NULL,
+  `taxable_price` FLOAT(18,2) NOT NULL DEFAULT '0.00',
+  `cgst_price` FLOAT(18,2) NOT NULL DEFAULT '0.00',
+  `igst_price` FLOAT(18,2) NOT NULL DEFAULT '0.00',
+  `subtotal_qty` FLOAT NOT NULL,
+  `net_total` FLOAT NOT NULL,
+  `discount` FLOAT(7,2) NOT NULL,
+  `remarks` VARCHAR(120) NOT NULL,
+  `customer_po` VARCHAR(120) NOT NULL,
+  `bill_type` ENUM('cash','credit') NOT NULL,
+  `created_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_by` INT(11) NOT NULL,
+  `payment_status` ENUM('Pending','Completed') NOT NULL,
+  `estatus` TINYINT(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=INNODB DEFAULT CHARSET=latin1
+
+
+
+
+
+CREATE TABLE `erp_quotation_return_details` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `return_id` INT(11) NOT NULL,
+  `q_id` INT(11) NOT NULL,
+  `q_detail_id` INT(11) NOT NULL,
+  `category` INT(11) NOT NULL,
+  `product_id` INT(11) NOT NULL,
+  `product_description` VARCHAR(255) DEFAULT NULL,
+  `product_type` ENUM('product','service') NOT NULL,
+  `brand` INT(11) NOT NULL,
+  `unit` VARCHAR(15) DEFAULT NULL,
+  `return_quantity` INT(4) NOT NULL,
+  `per_cost` FLOAT NOT NULL,
+  `tax` FLOAT NOT NULL,
+  `gst` FLOAT NOT NULL,
+  `igst` FLOAT DEFAULT NULL,
+  `sub_total` FLOAT NOT NULL,
+  `discount` FLOAT(7,2) DEFAULT NULL,
+  `created_date` DATETIME NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=INNODB DEFAULT CHARSET=latin1  
